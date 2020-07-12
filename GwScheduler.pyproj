@@ -29,6 +29,9 @@
     <Compile Include="GameEvent.py" />
     <Compile Include="GameEventManager.py" />
     <Compile Include="GwScheduler.py" />
+    <Compile Include="Serializer.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="auth.json">
