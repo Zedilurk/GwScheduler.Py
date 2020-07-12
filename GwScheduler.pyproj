@@ -22,12 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CommandArgument.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CommandManager.py" />
     <Compile Include="GameEvent.py" />
     <Compile Include="GameEventManager.py" />
     <Compile Include="GwScheduler.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="auth.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

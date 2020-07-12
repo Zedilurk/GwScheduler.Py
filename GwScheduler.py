@@ -1,3 +1,4 @@
+import json
 import discord
 import logging
 import GameEventManager
@@ -13,6 +14,11 @@ client = discord.Client()
 
 eventManager = GameEventManager.GameEventManager()
 commandManager = CommandManager.CommandManager()
+
+with open('auth.json') as f:
+  data = json.load(f)
+
+token = data["token"];
 
 @client.event
 async def on_ready():
@@ -30,7 +36,7 @@ async def on_message(message):
     #if message.content.startswith('$hello'):
     #    await message.channel.send('Hello!')
 
-client.run('NzI3MzI1MTg5MjAwOTM3MDcx.XwUadQ.GRaCEyX8H9VFOR6S3IXpw11Ad1s')
+client.run(token)
 
 
 # TODO
