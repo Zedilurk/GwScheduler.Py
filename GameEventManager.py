@@ -4,6 +4,7 @@ class GameEventManager(object):
     """description of class"""
     ScheduledEvents = []
 
+    @staticmethod
     def AddEvent (gameEvent):
-        ScheduledEvents.Append(gameEvent)
+        GameEventManager.ScheduledEvents.append(gameEvent)
 

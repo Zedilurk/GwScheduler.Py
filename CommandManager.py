@@ -1,16 +1,18 @@
 import CommandArgument
+import GameEventManager
+import GameEvent
 
 class CommandManager(object):
     """description of class"""
 
-    def Parse (text):
+    def Parse (self, text):
         # initial command string
         #       ex/ $registerevent args => registerevent
         command = text.split(' ')[0]
 
         # remaining commands split on commas
         #       ex/ $registerevent Scrims, 3pm, OG Hall => [Scrims, 3pm, OG Hall]
-        remainingCommandBody = text[command.length:]
+        remainingCommandBody = text[len(command):]
         commandArguments = remainingCommandBody.split(',')
         arguments = []
 
@@ -20,82 +22,98 @@ class CommandManager(object):
             name = ""
             value = ""
 
-            if (pieces.length > 1):
+            if (len(pieces) > 1):
                 name = pieces[0]
 
-                for x in range(1, pieces.length):
+                for x in range(1, len(pieces)):
                     value += pieces[x]
             else:
                 value = section
 
-            arg = CommandArgument(name, value)
+            arg = CommandArgument.CommandArgument(name, value)
             arguments.append(arg)
 
         return command, arguments;
 
-        # notes to self
-        #    does Python support reflection?
-        #    does Python support Regex?
-        #    Use regex to match before ':' use reflection to find that property
-        #    Use regex to match after ':' and set the value of the property
-        #    If no property name, try to fill in value of next null property?
+    # notes to self
+    #    does Python support reflection?
+    #    does Python support Regex?
+    #    Use regex to match before ':' use reflection to find that property
+    #    Use regex to match after ':' and set the value of the property
+    #    If no property name, try to fill in value of next null property?
 
-        # command arguments
-        #for section in commandSections:
+    # command arguments
+    #for section in commandSections:
 
-        #    sectionName = ""
-        #    sectionValue = ""
+    #    sectionName = ""
+    #    sectionValue = ""
 
-        #    if (section.contains(':')):
-        #        sectionPieces = section.split(':')
+    #    if (section.contains(':')):
+    #        sectionPieces = section.split(':')
 
-        #        if (sectionPieces.length == 2):
-        #            sectionName = sectionPieces[0]
-        #            sectionValue = sectionPieces[1]
-        #    else:
-        #        sectionValue = section
+    #        if (len(sectionPieces) == 2):
+    #            sectionName = sectionPieces[0]
+    #            sectionValue = sectionPieces[1]
+    #    else:
+    #        sectionValue = section
 
 
-    def React (self, command, arguments):
+    def React (self, command, user, arguments):
         """Dispatch method"""
         method_name = 'command_' + str(command)
         # Get the method from 'self'. Default to a lambda.
         method = getattr(self, method_name, lambda: "Invalid command")
         # Call the method as we return it
-        return method(arguments)
+        return method(arguments, user)
 
-    def command_join (self, arguments):
+    def command_join (self, arguments, user):
+        match = None
+        for event in GameEventManager.GameEventManager.ScheduledEvents:
+            if (event.EventName.lower() == arguments[0].Value.lower()):
+                match = event
+        
+        if (match != None):
+            match.AddUser(user)
 
         return "";
 
-    def command_leave (self, arguments):
+    def command_leave (self, arguments, user):
         return "";
 
-    def command_roster (self, arguments):
+    def command_roster (self, arguments, user):
         return "";
 
-    def command_reset (self, arguments):
+    def command_reset (self, arguments, user):
         return "";
 
-    def command_register (self, arguments):
+    def command_register (self, arguments, user):  
+        match = None
+        for event in GameEventManager.GameEventManager.ScheduledEvents:
+            if (event.EventName.lower() == arguments[0].Value.lower()):
+                match = event
+
+        if (match == None):
+            newEvent = GameEvent.GameEvent(arguments[0].Value)
+            GameEventManager.GameEventManager.AddEvent(newEvent)
+            
         return "";
 
-    def command_cancel (self, arguments):
+    def command_cancel (self, arguments, user):
         return "";
 
-    def command_change (self, arguments):
+    def command_change (self, arguments, user):
         return "";
 
-    def command_schedule (self, arguments):
+    def command_schedule (self, arguments, user):
         return "";
 
-    def command_feedback (self, arguments):
+    def command_feedback (self, arguments, user):
         return "";
 
-    def command_debugthrow (self, arguments):
+    def command_debugthrow (self, arguments, user):
         return "";
 
-    def command_help (self, arguments):
+    def command_help (self, arguments, user):
         return "";
 
         

@@ -11,7 +11,6 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 client = discord.Client()
-
 eventManager = GameEventManager.GameEventManager()
 commandManager = CommandManager.CommandManager()
 
@@ -31,7 +30,8 @@ async def on_message(message):
 
     if (message.content[0:1] == '$'):
         command, arguments = commandManager.Parse(message.content[1:])
-        commandManager.React(command, arguments)
+
+        commandManager.React(command, client.user.name, arguments)
 
     #if message.content.startswith('$hello'):
     #    await message.channel.send('Hello!')
@@ -40,7 +40,6 @@ client.run(token)
 
 
 # TODO
-# GameEvent class
 # Serialization
 # Period Backups of Events (to file)
 # Event beginning check timer
