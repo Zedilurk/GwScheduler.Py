@@ -7,6 +7,6 @@ discord==1.0.1
 idna==2.10
 multidict==4.7.6
 pip==19.2.3
-setuptools==41.2.0
+setuptools==65.5.1
 websockets==8.1
 yarl==1.4.2
